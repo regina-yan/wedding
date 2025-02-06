@@ -63,6 +63,14 @@ nav ul li a {
     display: flex;
     gap: 1rem;
     border-top: 1px dotted #d1d1d1 ;
+    flex-wrap: wrap;
+    
+}
+.justify-center{
+    justify-content: center;
+}
+.border-none{
+    border: none !important;
 }
 .flex-left{
     width: 100%;
@@ -88,4 +96,65 @@ nav ul li a {
     font-family: 'Borel', cursive;
     color: #695757;
     margin-bottom: 0px;
+}
+.qa-question{
+    margin-bottom: 0;
+}
+.qa-answer{
+    margin-top: 5px;
+}
+.columns{
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 15px;
+}
+.column{
+    text-align: start;
+}
+.img-fit{
+    max-width: 100%;
+    border-radius: 10px;
+}
+.img-fit-2{
+    width: 45%;
+    border-radius: 10px;
+}
+.bg-password{
+    background-image: url('bg-password.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top right 50% ;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+input{
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ac879d;
+}
+input:focus{
+    background-color: #daccd5;
+    outline: none
+}
+button{
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: #ac879d;
+    border: 1px solid #ac879d;
+    border-radius: 4px;
+    color: #fff;
+}
+button:hover{
+    background-color: #5e3b50;
+}
+@media (min-width: 1200px) {
+    .bg-password {
+        background-position: 50% 10%;
+    }
 }

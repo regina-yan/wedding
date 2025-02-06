@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Borel&family=Manrope:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-
+    <script>
+        // Redirect users if they are not authenticated
+        if (localStorage.getItem("authenticated") !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="our-story.html">Our Story</a></li>
             <li><a href="wedding-party.html">Wedding Party</a></li>
-            <li><a href="travel-stay.html">Travel & Stay</a></li>
+            <li><a href="travel-stay.html">Travel, Stay & Play</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="rsvp.html">RSVP</a></li>
         </ul>
@@ -109,5 +114,11 @@
             </div>
         </div>
     </div>
+    <script>
+        function logout() {
+            localStorage.removeItem("authenticated"); // Clear authentication
+            window.location.href = "index.html"; // Redirect to login
+        }
+    </script>
 </body>
 </html>

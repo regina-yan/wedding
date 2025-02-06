@@ -7,22 +7,87 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Borel&family=Manrope:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-
+    <script>
+        // Redirect users if they are not authenticated
+        if (localStorage.getItem("authenticated") !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="our-story.html">Our Story</a></li>
             <li><a href="wedding-party.html">Wedding Party</a></li>
-            <li><a href="travel-stay.html">Travel & Stay</a></li>
+            <li><a href="travel-stay.html">Travel, Stay & Play</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="rsvp.html">RSVP</a></li>
         </ul>
     </nav>
     <div class="content">
         <h1>Frequently Asked Questions</h1>
+        <div class="container-white">
+            <h2>Staying at Camp Glen Brook</h2>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">How much does lodging cost at the camp?</h4>
+                    <p class="qa-answer">Staying at the camp is free.</p>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">When is check in/out?</h4>
+                    <p class="qa-answer">You may arrive anytime after 12pm on Friday, and we ask that you clean up your space and head out around 12pm on Sunday.</p>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">What are the accommodations like at the camp?</h4>
+                    <div class="flex justify-center border-none">
+                        <img src="assets/cabin-1.png" class="img-fit-2"/>
+                        <img src="assets/cabin-2.png" class="img-fit-2"/>
+                    </div>
+                    <p class="qa-answer">There is a main building, wing, and three A-frames. There are 20 bedrooms total with 118 beds (25 of them are bunk beds). The beds are twin size. There are bathrooms, showers, and running (drinkable) water. Rooms can have 4-10 beds each. The photos display the interior of the A-frames</p>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">Do the cabins have heating or A/C?</h4>
+                    <p class="qa-answer">The Main building and wing have heating and A/C, but the A-frames do not. The A-frames are insulated, so warmth should not be an issue at this time of year.</p>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">What do I need to bring to stay at the camp?</h4>
+                    <p class="qa-answer">The beds don't have any linens, so you'll need to bring your own. This is what we recommend for a packing list (in addition to clothing, toiletries, etc.):</p>
+                    <p><b>Necessary</b></p>
+                    <ul>
+                        <li>sleeping bag, or a fitted sheet + comforter</li>
+                        <li>pillow</li>
+                        <li>towel</li>
+                    </ul>
+                    <p><b>Recommended</b></p>
+                    <ul>
+                        <li>swimsuit</li>
+                        <li>indoor cabin shoes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="flex-right">
+                    <h4 class="qa-question">Allergies?</h4>
+                    <p class="qa-answer">There are farm animals on the site (chickens, pigs, sheep, goats). We'll have Benadryl / Claritin handy, but let us know if you have other concerns.</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        function logout() {
+            localStorage.removeItem("authenticated"); // Clear authentication
+            window.location.href = "index.html"; // Redirect to login
+        }
+    </script>
 </body>
 </html>

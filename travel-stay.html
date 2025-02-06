@@ -7,22 +7,129 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Borel&family=Manrope:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-
+    <script>
+        // Redirect users if they are not authenticated
+        if (localStorage.getItem("authenticated") !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="our-story.html">Our Story</a></li>
             <li><a href="wedding-party.html">Wedding Party</a></li>
-            <li><a href="travel-stay.html">Travel & Stay</a></li>
+            <li><a href="travel-stay.html">Travel, Stay & Play</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="rsvp.html">RSVP</a></li>
         </ul>
     </nav>
     <div class="content">
-        <h1>Travel</h1>
+        <h1>Travel, Stay & Play</h1>
+        <div class="container-white">
+            <h2>Getting Here</h2>
+            <p>
+                Camp Glen Brook is located at <b>35 Glenbrook Rd, Marlborough, NH 03455.</b></p>
+            <p>Like many places in the Upper Valley, it's not close to a major airport or train station (the nearest being Battleboro Amtrak station, about 35 minute drive away). <b>This means the easiest form of transportation is driving.</b> It will be worth it, though, we promise! Our recommendations for getting here:</p>
+            <div class="column">
+                <h4 class="qa-question">New York or closer: drive</h4>
+                <p class="qa-answer">We recommend <b>driving</b> - the drive is under 4 hours from Manhattan. Half our guests live in New York so if you're looking for carpooling options, reach out to Regina and Sheppard.</p>
+            </div>
+            <div class="column">
+                <h4 class="qa-question">New York to DC: drive/fly</h4>
+                <p class="qa-answer">For our guests living outside the 4-hour drive radius (Arlington + DC friends especially), the drive is much longer but doable if that's the way you want to go. From DC, it's about an 8 hour drive. Amtrak's Vermonter route runs one 9-hour train between Union Station and Battleboro each day. Battleboro station is about a 45 min drive from camp. If going this route, you could try 8:10am-4:56pm on Friday, and 1:02pm-10:28pm on Sunday. If this were us, we'd probably choose the flight option below.</p>
+            </div>
+            <div class="column">
+                <h4 class="qa-question">Further than New York: fly</h4>
+                <p class="qa-answer">We'd recommend flying into Boston Logan Airport and renting a car/carpooling. The campm is just under a 2 hour's drive away.</p>
+            </div>
+
+            <p>There are plenty of parking spaces at the camp</p>
+        </div>
+        <div class="container-white">
+            <h2>Lodging</h2>
+            <p>
+                All wedding activities will be hosted at Camp Glen Brook -- Sheppard grew up going to summer camp here, Regina and Sheppard have both volunteered as counselors during the winter camp. It's truly a magical, whimsical place, and <b>we hope you'll join us in staying at this beautiful camp </b>throughout the weekend!.
+
+                If you don't want to stay at camp, there are hotel/motel options available in Keene.</p>
+            <div class="columns">
+                <div class="flex-right">
+                    <img src="assets/stay-camp.png" class="img-fit"/>
+                    <h4 class="qa-question">Camp Glen Brook</h4>
+                    <p class="qa-answer">Loding is free, but this is a kid's summer camp and rooms will have 4-10 beds, some of them bunked. For more information about staying at camp, head over to the <a href="faq.html">FAQ</a></p>
+                </div>
+                <div class="flex-right">
+                    <img src="assets/stay-keene.png" class="img-fit"/>
+                    <h4 class="qa-question">Hotel/Motel in Keene</h4>
+                    <p class="qa-answer">Keene is a cute town a 15 minute drive away. Some lodging options with prices for 2-night stay:
+                        <ul>
+                            <li><a href="https://www.google.com/maps/place/Best+Western+Plus+Keene+Hotel/@42.927576,-72.3156001,13.63z/data=!4m21!1m8!2m7!1smotel!5m5!5m4!1s2025-09-05!2i2!4m1!1i2!3m11!1s0x89e173713d999f79:0xf425176a8f7f02df!5m4!1s2025-09-05!2i2!4m1!1i2!8m2!3d42.9213318!4d-72.2940239!15sCgVtb3RlbFoHIgVtb3RlbJIBBWhvdGVs4AEA!16s%2Fg%2F1tgdv40v?entry=ttu&g_ep=EgoyMDI1MDIwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Best Western Plus (~$250)</a></li>
+                            <li><a href="https://www.google.com/maps/place/Hampton+Inn+%26+Suites+Keene/@42.9239061,-72.367512,13z/data=!4m21!1m8!2m7!1smotel!5m5!5m4!1s2025-09-05!2i2!4m1!1i2!3m11!1s0x89e173702ead3853:0x99b32f9e99e0c6cb!5m4!1s2025-09-05!2i2!4m1!1i2!8m2!3d42.9239079!4d-72.2954136!15sCgVtb3RlbJIBBWhvdGVs4AEA!16s%2Fg%2F11rcwsvjhj?entry=ttu&g_ep=EgoyMDI1MDIwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Hampton Inn & Suites (~280)</a></li>
+                            <li><a href="https://www.google.com/maps/place/Carriage+Barn+Bed+%26+Breakfast/@42.9200663,-72.3283421,13.37z/data=!4m21!1m8!2m7!1smotel!5m5!5m4!1s2025-09-05!2i2!4m1!1i2!3m11!1s0x89e1738490250ef9:0xee158ca05263b83d!5m4!1s2025-09-05!2i2!4m1!1i2!8m2!3d42.9246267!4d-72.2764657!15sCgVtb3RlbJIBEWJlZF9hbmRfYnJlYWtmYXN04AEA!16s%2Fg%2F1tmxs082?entry=ttu&g_ep=EgoyMDI1MDIwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Carriage Barn Bed & Breakfast (~$350)</a></li>
+                        </ul> </p>
+                </div>
+            </div>
+        </div>
+        <h1>Things to Do</h1>
+        <div class="container-white">
+            <h2>Camp Glen Brook</h2>
+            <div class="flex justify-center border-none">
+                <img src="assets/camp-1.png" class="img-fit-2"/>
+                <img src="assets/camp-2.png" class="img-fit-2"/>
+                <img src="assets/camp-3.png" class="img-fit-2"/>
+                <img src="assets/camp-4.png" class="img-fit-2"/>
+            </div>
+            <div class="column">
+                <p>Channel your inner kid-at-sleepaway-camp and enjoy the various activities on site:</p>
+            <ul>
+                <li>swimming in the lake</li>
+                <li>basketball + playground games at the outdoors rec hall</li>
+                <li>books and board games in the Main house living room</li>
+                <li>hiking trails around the camp</li>
+                <li>visiting the maple sugar shack (not operating during this season)</li>
+            </ul>
+            </div>
+        </div>
+        <div class="container-white">
+            <h2>Mt. Monadnock</h2>
+            <img src="assets/monadnock.png" class="img-fit"/>
+            <div class="column">
+                <p>A 15-20 minute drive from camp, Mount Monadnock offers beautiful views, but you'll have to work for it - the trails are steep! Bring hiking footwear if you plan to go, and don't hike if it's raining.</p>
+                <p>We recommend:
+                    <b>Dublin Trail</b>
+                    <ul>
+                        <li>4.4 miles out and back</li>
+                        <li>15min drive from camp to trailhead</li>
+                        <li>3 hour hiking estimate</li>
+                        <li><a href="https://www.alltrails.com/trail/us/new-hampshire/monadnock-mountain-via-dublin-trail" target="_blank">AllTrails link</a></li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="container-white">
+            <h2>Keene</h2>
+            <img src="assets/monadnock.png" class="img-fit"/>
+            <div class="column">
+                <p>A 15-20 minute drive from camp, Mount Monadnock offers beautiful views, but you'll have to work for it - the trails are steep! Bring hiking footwear if you plan to go, and don't hike if it's raining.</p>
+                <p>We recommend:
+                    <b>Dublin Trail</b>
+                    <ul>
+                        <li>4.4 miles out and back</li>
+                        <li>15min drive from camp to trailhead</li>
+                        <li>3 hour hiking estimate</li>
+                        <li><a href="https://www.alltrails.com/trail/us/new-hampshire/monadnock-mountain-via-dublin-trail" target="_blank">AllTrails link</a></li>
+                    </ul>
+                </p>
+            </div>
+        </div>
     </div>
+    <script>
+        function logout() {
+            localStorage.removeItem("authenticated"); // Clear authentication
+            window.location.href = "index.html"; // Redirect to login
+        }
+    </script>
 </body>
 </html>
