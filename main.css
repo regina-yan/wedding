@@ -1,0 +1,91 @@
+body {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    background-image: url('assets/textured-bg.webp');
+    background-size: 380px;
+    background-position: top left;
+    background-repeat: repeat;
+} 
+
+h1 {
+    font-family: 'Borel', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+    color: #382828;
+}
+h2{
+    font-family: 'Borel', cursive;;
+}
+
+nav {
+    /* background-color: #fff; */
+    padding: 10px 0;
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.content {
+    text-align: center;
+    padding: 20px;
+}
+.container-white{
+    background-color: #ffffff44;
+    border: 1px solid #ac879d;
+    border-radius: 10px;
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.flex{
+    display: flex;
+    gap: 1rem;
+    border-top: 1px dotted #d1d1d1 ;
+}
+.flex-left{
+    width: 100%;
+    text-align: end;
+}
+.flex-right{
+    width: 100%;
+    text-align: start;
+}
+.photo{
+    width: 100%;
+    border-radius: 8px;
+}
+.container-photo{
+    background-color: #ffffff;
+    border: 1px solid #ac879d;
+    width: 350px;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 1rem;
+}
+.caption{
+    font-family: 'Borel', cursive;
+    color: #695757;
+    margin-bottom: 0px;
+}
