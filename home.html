@@ -16,7 +16,10 @@
 </head>
 <body>
     <nav>
-        <ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰ 
+        </div>
+        <ul class="nav-links">
             <li><a href="home.html">Home</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="our-story.html">Our Story</a></li>
@@ -40,6 +43,9 @@
             localStorage.removeItem("authenticated"); // Clear authentication
             window.location.href = "index.html"; // Redirect to login
         }
+        function toggleMenu() {
+    document.querySelector(".nav-links").classList.toggle("show");
+}
     </script>
 </body>
 </html>
