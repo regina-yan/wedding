@@ -34,13 +34,21 @@ h2{
     margin: 0 auto;
     margin-bottom: 40px;
 }
+.container-clear{
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
 
 .flex{
     display: flex;
     gap: 1rem;
     border-top: 1px dotted #d1d1d1 ;
-    flex-wrap: wrap;
     
+}
+.wrap{
+    flex-wrap: wrap;
 }
 .justify-center{
     justify-content: center;
@@ -154,12 +162,20 @@ nav {
     font-weight: 700;
     font-size: 1rem;
 }
+.selected{
+    color: #7c2239 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 7px;
+}
 
 /* Hamburger Icon */
 .menu-toggle {
     display: none;
     font-size: 30px;
     cursor: pointer;
+}
+.mini{
+    max-width: 150px;
 }
 @media (min-width: 1200px) {
     .bg-password {
@@ -206,5 +222,10 @@ nav {
     }
     .menu-toggle {
         display: block;
+    }
+    .mini{
+        width: 100%;
+        max-width: none;
+        text-align: center;
     }
 }
