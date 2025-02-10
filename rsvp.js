@@ -91,19 +91,20 @@ function submitRSVP() {
 
     fetch(scriptURL, {
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" },
-        mode: "cors"
+        mode: "cors", // Allows cross-origin requests
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
     })
     .then(response => response.text())
     .then(data => {
         alert("RSVP submitted successfully!");
         document.getElementById("rsvpForm").reset();
-        document.getElementById("eventSelection").style.display = "none";
     })
     .catch(error => {
         console.error("Error submitting RSVP:", error);
-        alert("There was an issue submitting your RSVP. Please try again.");
+        alert("There was an issue submitting your RSVP.");
     });
 }
 
