@@ -92,7 +92,8 @@ function submitRSVP() {
     fetch(scriptURL, {
         method: "POST",
         body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
+        mode: "cors"
     })
     .then(response => response.text())
     .then(data => {
