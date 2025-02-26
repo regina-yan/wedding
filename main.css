@@ -1,3 +1,21 @@
+@font-face {
+    font-family: 'Laqula';
+    src: url('fonts/laqulademoregular-1gkz0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Mauren';
+    src: url('fonts/MaurenTrialVersion-6R8l6.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Barnule';
+    src: url('fonts/BarnuleTrialVersion-zr7B1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
     font-family: 'Manrope', sans-serif;
     margin: 0;
@@ -11,14 +29,27 @@ body {
 } 
 
 h1 {
-    font-family: 'Borel', cursive;
-    font-size: 2.5rem;
+    font-family: 'Barnule', cursive;
+    font-size: 3.5rem;
     text-align: center;
     margin-top: 20px;
-    color: #382828;
+    color: #AD3A00;
+    letter-spacing: 0.1rem;
 }
 h2{
-    font-family: 'Borel', cursive;;
+    font-family: 'Mauren', cursive;
+    color: #E84D00;
+}
+h3{
+    font-family: 'Laqula', cursive;
+    font-size: 1.25rem;
+    text-align: center;
+    color: #433221;
+    font-weight: 400;
+}
+.no-margin{
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .content {
@@ -34,13 +65,42 @@ h2{
     margin: 0 auto;
     margin-bottom: 40px;
 }
-.container-clear{
-    padding: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    margin-bottom: 40px;
-}
+.bg-1{
+    background-color: #FFFAF5 !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
 
+}
+.bg-2{
+    background-color: #FFEFDE !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+
+}
+.bg-3{
+    background-color: #FED2D2 !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+
+}
+.bg-4{
+    background-color: #6A3B3C !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+
+}
+.bg-5{
+    background-color: #522C3E !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+
+}
+.bg-6{
+    background-color: #3E2C36 !important;
+    position: relative;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+
+}
 .flex{
     display: flex;
     gap: 1rem;
@@ -56,17 +116,29 @@ h2{
 .border-none{
     border: none !important;
 }
+.margin-top{
+    margin-top: 3rem;
+}
 .flex-left{
     width: 100%;
     text-align: end;
+}
+.white{
+    color: white;
 }
 .flex-right{
     width: 100%;
     text-align: start;
 }
+.align-left{
+    text-align: start;
+}
 .photo{
     width: 100%;
     border-radius: 8px;
+}
+.doodle{
+    max-width: 300px;
 }
 .container-photo{
     background-color: #ffffff;
@@ -74,10 +146,20 @@ h2{
     width: 350px;
     margin: 0 auto;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.5rem;
+    box-shadow: 0px 4px 5px rgb(197, 197, 197);
+    position: relative;
+}
+.tape{
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 100px;
 }
 .caption{
-    font-family: 'Borel', cursive;
+    font-family: 'Laqula', cursive;
     color: #695757;
     margin-bottom: 0px;
 }
@@ -120,7 +202,8 @@ input{
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 4px;
-    border: 1px solid #ac879d;
+    border: 1px solid #AD3A00;
+    min-width: 250px;
 }
 input:focus{
     background-color: #daccd5;
@@ -128,20 +211,24 @@ input:focus{
 }
 button{
     padding: 0.5rem;
+    padding-bottom: 0.3rem;
     font-size: 1rem;
-    background-color: #ac879d;
-    border: 1px solid #ac879d;
+    background-color: #AD3A00;
+    border: 1px solid #AD3A00;
     border-radius: 4px;
     color: #fff;
+    font-family: "Mauren";
 }
 button:hover{
-    background-color: #5e3b50;
+    background-color: #7e2600;
 }
 nav {
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 100px;
+    font-family: "Mauren";
 }
 
 .nav-links {
@@ -158,14 +245,20 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: #433221;
     font-weight: 700;
     font-size: 1rem;
 }
 .selected{
-    color: #7c2239 !important;
+    color: #E84D00 !important;
     text-decoration: underline !important;
     text-underline-offset: 7px;
+}
+.padding{
+    padding-top: 50px;
+}
+.padding-lg{
+    padding-top: 100px;
 }
 
 /* Hamburger Icon */
@@ -227,5 +320,8 @@ nav {
         width: 100%;
         max-width: none;
         text-align: center;
+    }
+    .nav{
+        margin-top: none;
     }
 }
