@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbwEhRxiPRwzQRiBdk9i29HPElapmkvnQWp43zseIfvGMei0qjhgW_49GBvBLVtRkV9K-A/exec"; // Replace with your actual Google Apps Script URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbzGgAVszJvFw-CsE4xPWZFuEziSF1g2L_lRoDnmnWqOg363aeuOlqjP3M8Da9iaQtThPg/exec"; // Replace with your actual Google Apps Script URL
 
 const guestList = {
     "Alice Johnson": ["Alice Johnson", "John Johnson"],
@@ -89,18 +89,17 @@ function submitRSVP() {
 
     const formData = { guests: selectedGuests, selectedEvents };
 
-    fetch(scriptURL, {
+    fetch("https://script.google.com/macros/s/AKfycbzGgAVszJvFw-CsE4xPWZFuEziSF1g2L_lRoDnmnWqOg363aeuOlqjP3M8Da9iaQtThPg/exec", {
         method: "POST",
-        mode: "cors", // Allows cross-origin requests
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.text())
+    .then(response => response.json()) // Ensure the response is JSON
     .then(data => {
+        console.log("Success:", data);
         alert("RSVP submitted successfully!");
-        document.getElementById("rsvpForm").reset();
     })
     .catch(error => {
         console.error("Error submitting RSVP:", error);
