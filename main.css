@@ -147,6 +147,23 @@ h3{
 .doodle{
     max-width: 300px;
 }
+.bg-doodles{
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+}
+.bg-doodles-no-padding{
+    position: absolute;
+    /* top: 10rem; */
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+}
+.relative{
+    position: relative;
+}
 .container-photo{
     background-color: #ffffff;
     border: 1px solid #ac879d;
@@ -244,6 +261,7 @@ nav {
     gap: 20px;
     margin: 0 auto;
     margin-top: 15px;
+    z-index: 1000;
 }
 
 .nav-links li {
@@ -270,6 +288,64 @@ nav {
 .padding-sm{
     padding-top: 20px;
 }
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Checkbox Card Styling */
+.checkbox-card {
+    display: flex;
+    align-items: center; /* Ensures checkbox and text align vertically */
+    justify-content: flex-start; /* Aligns items to the left */
+    background: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #ac879d;
+    width: 100%; /* Ensures all cards have the same width */
+    max-width: 400px; /* Optional: Limits how wide it can get */
+}
+
+.checkbox-card:hover {
+    background-color: #FFFAF5;
+}
+
+/* Checkbox Styling */
+.checkbox-card input[type="checkbox"] {
+    width: 20px;  /* Set explicit width */
+    height: 20px;
+    margin-right: 10px;
+    accent-color: #E84D00;
+    flex-shrink: 0; /* Prevents stretching */
+    flex-grow: 0; /* Ensures it doesn't expand */
+    min-width: 20px !important;
+}
+
+/* Label Styling */
+.checkbox-card label {
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Textbox for Other Dietary */
+.checkbox-card input[type="text"] {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.checkbox-card input[type="text"]:focus {
+    border-color: #E84D00;
+}
+
+
 
 /* Hamburger Icon */
 .menu-toggle {
@@ -328,7 +404,25 @@ nav {
         max-width: none;
         text-align: center;
     }
-    .nav{
-        margin-top: none;
+    nav{
+        margin-top: 20px;
+    }
+    .bg-doodles{
+        display: none;
+    }
+    .bg-doodles-no-padding{
+        display: none;
+    }
+    .checkbox-card{
+        width: auto;
+    }
+    .checkbox-card input[type="text"] {
+        min-width: auto;
+    }
+    .rsvp-input{
+        margin-bottom: 15px;
+    }
+    .hide-mobile{
+        display: none;
     }
 }

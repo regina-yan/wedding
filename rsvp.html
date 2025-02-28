@@ -59,23 +59,77 @@
                 guestListDiv.innerHTML = "";
                 familyMembers.forEach(member => {
                     guestListDiv.innerHTML += `
-                        <h3>${member}</h3>
-                        <label><input type="checkbox" name="friday" id="friday_${member}"> Friday Welcome Party</label><br>
-                        <label><input type="checkbox" name="saturday" id="saturday_${member}"> Saturday Ceremony + Reception</label><br>
-                        <label><input type="checkbox" name="sunday" id="sunday_${member}"> Sunday Brunch</label><br>
-                        <label><input type="checkbox" name="camp" id="camp_${member}"> Staying at Camp</label><br>
-                        <label><input type="checkbox" id="cannot_make_it_${member}" onchange="toggleAttendance('${member}')"> Cannot Make It</label><br>
+                        <div class="container-clear">
+                            <h2>${member}</h2>
+                        <!-- Event Checkboxes -->
+                            <h3>Events</h3>
+                            <div class="checkbox-card">
+                                <input type="checkbox" name="friday" id="friday_${member}">
+                                <label for="friday_${member}"> Friday Welcome Party</label>
+                            </div>
 
-                        <div id="dietary_div_${member}">
-                            <label>Dietary Restrictions: </label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_vegetarian_${member}" value="vegetarian"> Vegetarian</label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_vegan_${member}" value="vegan"> Vegan</label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_glutenfree_${member}" value="glutenfree"> Gluten-Free</label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_peanutfree_${member}" value="peanutfree"> Peanut-Free</label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_lactosefree_${member}" value="lactosefree"> Lactose-Free</label><br>
-                            <label><input type="checkbox" name="dietary_${member}" id="dietary_shellfishfree_${member}" value="shellfishfree"> Shellfish-Free</label><br>
-                            <label>Other: <input type="text" id="dietary_other_${member}" placeholder="Please elaborate"></label><br><br>
-                        </div>
+                            <div class="checkbox-card">
+                                <input type="checkbox" name="saturday" id="saturday_${member}">
+                                <label for="saturday_${member}"> Saturday Ceremony + Reception</label>
+                            </div>
+
+                            <div class="checkbox-card">
+                                <input type="checkbox" name="sunday" id="sunday_${member}">
+                                <label for="sunday_${member}"> Sunday Brunch</label>
+                            </div>
+
+                            <div class="checkbox-card">
+                                <input type="checkbox" name="camp" id="camp_${member}">
+                                <label for="camp_${member}"> Staying at Camp</label>
+                            </div>
+
+                            <div class="checkbox-card">
+                                <input type="checkbox" id="cannot_make_it_${member}" onchange="toggleAttendance('${member}')">
+                                <label for="cannot_make_it_${member}"> Cannot Make It</label>
+                            </div>
+
+                            <!-- Dietary Restrictions -->
+                            <div id="dietary_div_${member}">
+                                <h3>Dietary Restrictions</h3>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_vegetarian_${member}" value="vegetarian">
+                                    <label for="dietary_vegetarian_${member}"> Vegetarian</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_vegan_${member}" value="vegan">
+                                    <label for="dietary_vegan_${member}"> Vegan</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_glutenfree_${member}" value="glutenfree">
+                                    <label for="dietary_glutenfree_${member}"> Gluten-Free</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_peanutfree_${member}" value="peanutfree">
+                                    <label for="dietary_peanutfree_${member}"> Peanut-Free</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_lactosefree_${member}" value="lactosefree">
+                                    <label for="dietary_lactosefree_${member}"> Lactose-Free</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <input type="checkbox" name="dietary_${member}" id="dietary_shellfishfree_${member}" value="shellfishfree">
+                                    <label for="dietary_shellfishfree_${member}"> Shellfish-Free</label>
+                                </div>
+
+                                <div class="checkbox-card">
+                                    <label for="dietary_other_${member}">Other:</label>
+                                    <input type="text" id="dietary_other_${member}" placeholder="Please elaborate">
+                                </div>
+                            </div>
+                            </div>
+
+ 
                         <br><br>
                     `;
                 });
@@ -200,32 +254,37 @@
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰ 
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="our-story.html">Our Story</a></li>
             <li><a href="wedding-party.html">Wedding Party</a></li>
-            <li><a href="travel-stay.html">Travel & Stay</a></li>
+            <li><a href="travel-stay.html">Travel, Stay & Play</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="rsvp.html">RSVP</a></li>
+            <li><a href="rsvp.html" class="selected">RSVP</a></li>
         </ul>
     </nav>
     <div class="content">
         <h1>RSVP</h1>
+        <div>
+            <h2>Wedding RSVP</h2>
+            <!-- <label for="guestName">Enter Your Name:</label> -->
+            <input type="text" id="guestName" placeholder="Type your name" class="rsvp-input">
+            <button onclick="checkGuest()">Find Invitation</button>
+
+            <p id="errorMsg" style="color: red; display: none;">Sorry, your name is not on the list.</p>
+
+            <form id="rsvpForm" style="display:none;">
+                <div id="guestList"></div>
+                <br>
+                <button type="submit">Submit RSVP</button>
+            </form>
+        </div>
     </div>
-    <h2>Wedding RSVP</h2>
 
-    <label for="guestName">Enter Your Name:</label>
-    <input type="text" id="guestName" placeholder="Type your name">
-    <button onclick="checkGuest()">Check</button>
-
-    <p id="errorMsg" style="color: red; display: none;">Sorry, your name is not on the list.</p>
-
-    <form id="rsvpForm" style="display:none;">
-        <div id="guestList"></div>
-        <br>
-        <button type="submit">Submit RSVP</button>
-    </form>
     
 </body>
 </html>
