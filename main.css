@@ -5,17 +5,22 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'Mauren';
-    src: url('fonts/MaurenTrialVersion-6R8l6.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'Barnule';
-    src: url('fonts/BarnuleTrialVersion-zr7B1.ttf') format('truetype');
+    src: url('fonts/barnule-webfont.woff2') format('woff2'),
+         url('fonts/barnule-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+  }
+  @font-face {
+    font-family: 'Mauren';
+    src: url('fonts/mauren-webfont.woff2') format('woff2'),
+         url('fonts/mauren-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+  
 body {
     font-family: 'Manrope', sans-serif;
     margin: 0;
@@ -27,7 +32,9 @@ body {
     background-position: top left;
     background-repeat: repeat;
 } 
-
+p{
+    font-family: 'Manrope', sans-serif;
+}
 h1 {
     font-family: 'Barnule', cursive;
     font-size: 3.5rem;
@@ -189,6 +196,7 @@ h3{
 }
 .qa-question{
     margin-bottom: 0;
+    font-family: "Manrope";
 }
 .qa-answer{
     margin-top: 5px;
@@ -246,6 +254,9 @@ button{
 button:hover{
     background-color: #7e2600;
 }
+ul{
+    font-family: 'Manrope', sans-serif;
+}
 nav {
     padding: 15px 20px;
     display: flex;
@@ -254,7 +265,9 @@ nav {
     margin-top: 100px;
     font-family: "Mauren";
 }
-
+label{
+    font-family: "Manrope", sans-serif;
+}
 .nav-links {
     list-style: none;
     display: flex;
@@ -262,6 +275,7 @@ nav {
     margin: 0 auto;
     margin-top: 15px;
     z-index: 1000;
+    font-family: "Mauren";
 }
 
 .nav-links li {
