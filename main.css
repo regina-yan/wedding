@@ -54,6 +54,9 @@ h3{
     color: #433221;
     font-weight: 400;
 }
+h4{
+    font-family: 'Manrope', sans-serif;
+}
 .no-margin{
     margin-top: 0;
     margin-bottom: 0;
@@ -180,6 +183,7 @@ h3{
     padding: 0.5rem;
     box-shadow: 0px 4px 5px rgb(197, 197, 197);
     position: relative;
+    height: fit-content;
 }
 .tape{
     position: absolute;
@@ -438,5 +442,8 @@ body {
     }
     .hide-mobile{
         display: none;
+    }
+    .margin-below-mobile{
+        margin-bottom: 20px;
     }
 }

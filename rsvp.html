@@ -29,140 +29,135 @@
         const db = getFirestore(app);
 
         async function checkGuest() {
-            const inputName = document.getElementById("guestName").value.trim();
-            const errorMsg = document.getElementById("errorMsg");
-            const form = document.getElementById("rsvpForm");
-            const guestListDiv = document.getElementById("guestList");
+    const inputName = document.getElementById("guestName").value.trim().toLowerCase(); // Convert input to lowercase
+    const errorMsg = document.getElementById("errorMsg");
+    const form = document.getElementById("rsvpForm");
+    const guestListDiv = document.getElementById("guestList");
 
-            // Fetch all RSVP documents and find the one containing the input name
-            const rsvpCollection = collection(db, "rsvps");
-            const snapshot = await getDocs(rsvpCollection);
+    // Fetch all RSVP documents and find the one containing the input name
+    const rsvpCollection = collection(db, "rsvps");
+    const snapshot = await getDocs(rsvpCollection);
 
-            let familyDoc = null;
-            let familyDocId = null;
+    let familyDoc = null;
+    let familyDocId = null;
 
-            snapshot.forEach(docSnap => {
-                const data = docSnap.data();
-                if (data.family && data.family.includes(inputName)) {
-                    familyDoc = data;
-                    familyDocId = docSnap.id;
-                }
-            });
+    snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        if (data.family && data.family.some(name => name.toLowerCase() === inputName)) { 
+            familyDoc = data;
+            familyDocId = docSnap.id;
+        }
+    });
 
-            if (familyDoc) {
-                errorMsg.style.display = "none";
-                form.style.display = "block";
-                form.dataset.familyDocId = familyDocId;
+    if (familyDoc) {
+        errorMsg.style.display = "none";
+        form.style.display = "block";
+        form.dataset.familyDocId = familyDocId;
 
-                const familyMembers = familyDoc.family || [inputName];
+        const familyMembers = familyDoc.family || [inputName];
 
-                guestListDiv.innerHTML = "";
-                familyMembers.forEach(member => {
-                    guestListDiv.innerHTML += `
-                        <div class="container-clear">
-                            <h2>${member}</h2>
-                        <!-- Event Checkboxes -->
-                            <h3>Events</h3>
-                            <div class="checkbox-card">
-                                <input type="checkbox" name="friday" id="friday_${member}">
-                                <label for="friday_${member}"> Friday Welcome Party</label>
-                            </div>
+        guestListDiv.innerHTML = "";
+        familyMembers.forEach(member => {
+            guestListDiv.innerHTML += `
+                <div class="container-clear">
+                    <h2>${member}</h2>
+                    <h3>Events</h3>
+                    <div class="checkbox-card">
+                        <input type="checkbox" name="friday" id="friday_${member}">
+                        <label for="friday_${member}"> Friday Welcome Party</label>
+                    </div>
 
-                            <div class="checkbox-card">
-                                <input type="checkbox" name="saturday" id="saturday_${member}">
-                                <label for="saturday_${member}"> Saturday Ceremony + Reception</label>
-                            </div>
+                    <div class="checkbox-card">
+                        <input type="checkbox" name="saturday" id="saturday_${member}">
+                        <label for="saturday_${member}"> Saturday Ceremony + Reception</label>
+                    </div>
 
-                            <div class="checkbox-card">
-                                <input type="checkbox" name="sunday" id="sunday_${member}">
-                                <label for="sunday_${member}"> Sunday Brunch</label>
-                            </div>
+                    <div class="checkbox-card">
+                        <input type="checkbox" name="sunday" id="sunday_${member}">
+                        <label for="sunday_${member}"> Sunday Brunch</label>
+                    </div>
 
-                            <div class="checkbox-card">
-                                <input type="checkbox" name="camp" id="camp_${member}">
-                                <label for="camp_${member}"> Staying at Camp</label>
-                            </div>
+                    <div class="checkbox-card">
+                        <input type="checkbox" name="camp" id="camp_${member}">
+                        <label for="camp_${member}"> Staying at Camp</label>
+                    </div>
 
-                            <div class="checkbox-card">
-                                <input type="checkbox" id="cannot_make_it_${member}" onchange="toggleAttendance('${member}')">
-                                <label for="cannot_make_it_${member}"> Cannot Make It</label>
-                            </div>
+                    <div class="checkbox-card">
+                        <input type="checkbox" id="cannot_make_it_${member}" onchange="toggleAttendance('${member}')">
+                        <label for="cannot_make_it_${member}"> Cannot Make It</label>
+                    </div>
 
-                            <!-- Dietary Restrictions -->
-                            <div id="dietary_div_${member}">
-                                <h3>Dietary Restrictions</h3>
+                    <div id="dietary_div_${member}">
+                        <h3>Dietary Restrictions</h3>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_vegetarian_${member}" value="vegetarian">
+                            <label for="dietary_vegetarian_${member}"> Vegetarian</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_vegetarian_${member}" value="vegetarian">
-                                    <label for="dietary_vegetarian_${member}"> Vegetarian</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_vegan_${member}" value="vegan">
+                            <label for="dietary_vegan_${member}"> Vegan</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_vegan_${member}" value="vegan">
-                                    <label for="dietary_vegan_${member}"> Vegan</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_glutenfree_${member}" value="glutenfree">
+                            <label for="dietary_glutenfree_${member}"> Gluten-Free</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_glutenfree_${member}" value="glutenfree">
-                                    <label for="dietary_glutenfree_${member}"> Gluten-Free</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_peanutfree_${member}" value="peanutfree">
+                            <label for="dietary_peanutfree_${member}"> Peanut-Free</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_peanutfree_${member}" value="peanutfree">
-                                    <label for="dietary_peanutfree_${member}"> Peanut-Free</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_lactosefree_${member}" value="lactosefree">
+                            <label for="dietary_lactosefree_${member}"> Lactose-Free</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_lactosefree_${member}" value="lactosefree">
-                                    <label for="dietary_lactosefree_${member}"> Lactose-Free</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${member}" id="dietary_shellfishfree_${member}" value="shellfishfree">
+                            <label for="dietary_shellfishfree_${member}"> Shellfish-Free</label>
+                        </div>
 
-                                <div class="checkbox-card">
-                                    <input type="checkbox" name="dietary_${member}" id="dietary_shellfishfree_${member}" value="shellfishfree">
-                                    <label for="dietary_shellfishfree_${member}"> Shellfish-Free</label>
-                                </div>
+                        <div class="checkbox-card">
+                            <label for="dietary_other_${member}">Other:</label>
+                            <input type="text" id="dietary_other_${member}" placeholder="Please elaborate">
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+            `;
+        });
 
-                                <div class="checkbox-card">
-                                    <label for="dietary_other_${member}">Other:</label>
-                                    <input type="text" id="dietary_other_${member}" placeholder="Please elaborate">
-                                </div>
-                            </div>
-                            </div>
+        // Pre-fill existing RSVP responses
+        if (familyDoc.responses) {
+            for (const member in familyDoc.responses) {
+                for (const field in familyDoc.responses[member]) {
+                    const value = familyDoc.responses[member][field];
 
- 
-                        <br><br>
-                    `;
-                });
+                    // Handle checkboxes (boolean fields)
+                    if (typeof value === "boolean") {
+                        const checkbox = document.getElementById(`${field}_${member}`);
+                        if (checkbox) {
+                            checkbox.checked = value;
+                        }
+                    }
 
-                // Pre-fill existing RSVP responses
-                if (familyDoc.responses) {
-                    for (const member in familyDoc.responses) {
-                        for (const field in familyDoc.responses[member]) {
-                            const value = familyDoc.responses[member][field];
-
-                            // Handle checkboxes (boolean fields)
-                            if (typeof value === "boolean") {
-                                const checkbox = document.getElementById(`${field}_${member}`);
-                                if (checkbox) {
-                                    checkbox.checked = value;
-                                }
-                            }
-
-                            // Handle "Other" dietary restriction text box
-                            if (field === "dietary_other") {
-                                const otherInput = document.getElementById(`dietary_other_${member}`);
-                                if (otherInput) {
-                                    otherInput.value = value;
-                                }
-                            }
+                    // Handle "Other" dietary restriction text box
+                    if (field === "dietary_other") {
+                        const otherInput = document.getElementById(`dietary_other_${member}`);
+                        if (otherInput) {
+                            otherInput.value = value;
                         }
                     }
                 }
-            } else {
-                errorMsg.style.display = "block";
-                form.style.display = "none";
             }
         }
+    } else {
+        errorMsg.style.display = "block";
+        form.style.display = "none";
+    }
+}
 
         function toggleAttendance(member) {
             const cannotMakeIt = document.getElementById(`cannot_make_it_${member}`).checked;
@@ -196,8 +191,10 @@
 
             const familyGroup = {};
 
-            document.querySelectorAll("#guestList h3").forEach(header => {
+            document.querySelectorAll("#guestList h2").forEach(header => {
                 const member = header.textContent;
+                console.log("Processing member:", member);
+
 
                 // Initialize dietary restrictions
                 const dietaryRestrictions = [];
