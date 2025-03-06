@@ -117,7 +117,7 @@
         function generateGuestForm(memberName, isPlusOne) {
             
             return `
-                <div class="container-clear">
+                <div class="container-white">
                     <h2>${isPlusOne ? "Plus One" : memberName}</h2>
                     ${isPlusOne ? `<input type="text" id="plusOneName" value="${isPlusOne && memberName ? memberName : ''}" placeholder="Enter plus one's name">
 ` : ""}
@@ -334,8 +334,11 @@
         <div>
             <h2>Wedding RSVP</h2>
             <!-- <label for="guestName">Enter Your Name:</label> -->
-            <input type="text" id="guestName" placeholder="Type your name" class="rsvp-input">
-            <button onclick="checkGuest()">Find Invitation</button>
+             <div class="flex border-none justify-center">
+                <input type="text" id="guestName" placeholder="Type your name" class="rsvp-input">
+                <button onclick="checkGuest()">Find Invitation</button>
+             </div>
+             <div class="padding"></div>
 
             <p id="errorMsg" style="color: red; display: none;">Sorry, your name is not on the list.</p>
 
