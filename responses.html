@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Responses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-firestore.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBmCl8tEdceynmrJH8bCl2L8V66V5eGeSQ",
+        authDomain: "wedding-rsvp-62d31.firebaseapp.com",
+        projectId: "wedding-rsvp-62d31",
+        storageBucket: "wedding-rsvp-62d31.firebasestorage.app",
+        messagingSenderId: "49704955972",
+        appId: "1:49704955972:web:f27cdd6b976da267428c11",
+        measurementId: "G-VKXF6H07KE"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchRSVPs() {
+            const rsvpsRef = collection(db, "rsvps");
+            const rsvpSnapshot = await getDocs(rsvpsRef);
+
+            const tableBody = document.getElementById('responses-table-body');
+            let attendingCount = 0;
+            let campingCount = 0;
+            let invitedCount = 0;
+
+            rsvpSnapshot.forEach((doc) => {
+                const data = doc.data();
+
+                if (Array.isArray(data.family)) {
+                    invitedCount += data.family.length;
+                    if (data.plusOneAllowed) invitedCount++;
+                    data.family.forEach(member => {
+                        if (data.responses && data.responses[member]) {
+                            const response = data.responses[member];
+                            if (!response.cannot_make_it) attendingCount++;
+                            if (response.camp) campingCount++;
+
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${member}</td>
+                                <td>${response.camp ? 'Yes' : 'No'}</td>
+                                <td>${response.cannot_make_it ? 'No' : 'Yes'}</td>
+                                <td>${response.friday ? 'Yes' : 'No'}</td>
+                                <td>${response.saturday ? 'Yes' : 'No'}</td>
+                                <td>${response.sunday ? 'Yes' : 'No'}</td>
+                                <td>${response.dietary_glutenfree ? 'Gluten-Free ' : ''}${response.dietary_lactosefree ? 'Lactose-Free ' : ''}${response.dietary_peanutfree ? 'Peanut-Free ' : ''}${response.dietary_shellfishfree ? 'Shellfish-Free ' : ''}${response.dietary_vegan ? 'Vegan ' : ''}${response.dietary_vegetarian ? 'Vegetarian ' : ''}${response.dietary_other || ''}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        }
+                    });
+                } else {
+                    console.warn(`No family array found for document: ${doc.id}`);
+                }
+            });
+
+            document.getElementById('attending-count').textContent = attendingCount;
+            document.getElementById('camping-count').textContent = campingCount;
+            document.getElementById('invited-count').textContent = invitedCount;
+        }
+        window.addEventListener('DOMContentLoaded', fetchRSVPs);
+    </script>
+</head>
+<body style="font-family: 'Manrope', sans-serif;">
+    <h1>RSVP Responses</h1>
+    <div class="flex border-none">
+        <div class="container-white">
+            <h2>People Attending</h2>
+            <p id="attending-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>People Camping</h2>
+            <p id="camping-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Total Invited</h2>
+            <p id="invited-count">0</p>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-head">Name</th>
+                <th class="table-head">Camping</th>
+                <th class="table-head">Attending</th>
+                <th class="table-head">Friday</th>
+                <th class="table-head">Saturday</th>
+                <th class="table-head">Sunday</th>
+                <th class="table-head">Dietary Restrictions</th>
+            </tr>
+        </thead>
+        <tbody id="responses-table-body"></tbody>
+    </table>
+</body>
+</html>
