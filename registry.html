@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmCl8tEdceynmrJH8bCl2L8V66V5eGeSQ",
+            authDomain: "wedding-rsvp-62d31.firebaseapp.com",
+            projectId: "wedding-rsvp-62d31",
+            storageBucket: "wedding-rsvp-62d31.firebasestorage.app",
+            messagingSenderId: "49704955972",
+            appId: "1:49704955972:web:f27cdd6b976da267428c11",
+            measurementId: "G-VKXF6H07KE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let currentItem = null;
+
+        async function fetchRegistryItems() {
+            const registryRef = collection(db, "registry");
+            const registrySnapshot = await getDocs(registryRef);
+            const itemsContainer = document.getElementById('items-container');
+
+            registrySnapshot.forEach(docSnap => {
+                const data = docSnap.data();
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item-card';
+
+                const isPurchased = data.purchasedBy && data.purchasedBy.length > 0;
+                const buttonLabel = data.type === 'money fund' ? 'Contribute' : (isPurchased ? 'Purchased' : 'Purchase');
+                const isDisabled = isPurchased && data.type !== 'money fund';
+
+                itemDiv.innerHTML = `
+                    <img src="${data.image}" alt="${data.name}" style="width: 100px; height: 100px;">
+                    <h2>${data.name}</h2>
+                    <p>${data.description}</p>
+                    <a href="${data.website}" target="_blank">View Item</a>
+                    <p>Cost: ${data.type === 'money fund' ? '$' + (data.contributed || 0) + ' / $' + data.cost : '$' + data.cost}</p>
+                    <button onclick="openModal('${docSnap.id}', '${data.type}')" ${isDisabled ? 'disabled' : ''}>${buttonLabel}</button>
+                `;
+                itemsContainer.appendChild(itemDiv);
+            });
+        }
+
+        window.openModal = function(itemId, type) {
+            currentItem = { itemId, type };
+            document.getElementById('contribution-amount-wrapper').style.display = type === 'money fund' ? 'block' : 'none';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        window.submitForm = async function() {
+            const name = document.getElementById('contributor-name').value;
+            const amountInput = document.getElementById('contribution-amount');
+            const amount = parseFloat(amountInput.value);
+
+            if (!name || (currentItem.type === 'money fund' && (isNaN(amount) || amount <= 0))) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const itemRef = doc(db, "registry", currentItem.itemId);
+
+            if (currentItem.type === 'money fund') {
+                await updateDoc(itemRef, {
+                    contributed: increment(amount),
+                    [`contributors.${name}`]: increment(amount)
+                });
+            } else {
+                await updateDoc(itemRef, {
+                    purchasedBy: name
+                });
+            }
+
+            alert('Thank you for your contribution!');
+            location.reload();
+        }
+
+        window.closeModal = function() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('contributor-name').value = '';
+            document.getElementById('contribution-amount').value = '';
+            currentItem = null;
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchRegistryItems);
+    </script>
+</head>
+<body style="font-family: 'Manrope', sans-serif;">
+    <h1>Registry</h1>
+    <div id="items-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;"></div>
+
+    <!-- Modal -->
+    <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; width: 300px;">
+            <h2>Contribute / Purchase</h2>
+            <label>Name: <input type="text" id="contributor-name"></label><br><br>
+            <div id="contribution-amount-wrapper" style="display: none;">
+                <label>Amount: <input type="number" id="contribution-amount" min="0" step="0.01"></label><br><br>
+            </div>
+            <button onclick="submitForm()">Submit</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>
