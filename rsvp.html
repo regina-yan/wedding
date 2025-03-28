@@ -213,6 +213,7 @@
             event.preventDefault();
             const form = document.getElementById("rsvpForm");
             const familyDocId = form.dataset.familyDocId;
+            const contentDiv = document.querySelector(".content");
 
             if (!familyDocId) {
                 alert("Error: Unable to find family document.");
@@ -220,12 +221,11 @@
             }
 
             const familyGroup = {};
-            let isPlusOneSubmitted = false; // Flag to check if Plus One is being submitted
             let plusOneName = null; // Variable to hold the plus one's name
 
             document.querySelectorAll("#guestList h2").forEach(header => {
                 const member = header.textContent.trim();
-                let memberKey = member === "Your Plus One" ? "Plus One" : member; // Store plus one properly
+                let memberKey = member === "Your Plus One" ? "Plus One" : member; 
 
                 const dietaryRestrictions = [];
                 const dietaryData = {
@@ -249,7 +249,6 @@
                     dietaryRestrictions.push(otherDietaryInput.value.trim());
                 }
 
-                // If the member is "Your Plus One", capture the name inputted
                 if (memberKey === "Plus One") {
                     plusOneName = document.getElementById("plusOneName")?.value.trim();
                 }
@@ -263,42 +262,21 @@
                     dietary_restrictions: dietaryRestrictions,
                     ...dietaryData
                 };
-
-                // Check if Plus One is being submitted
-                if (memberKey === "Plus One" && !isPlusOneSubmitted) {
-                    isPlusOneSubmitted = true;
-                }
             });
 
-            // If a Plus One name was input, save it in the family group under the actual name
             if (plusOneName) {
-                familyGroup[plusOneName] = familyGroup["Plus One"]; // Use the inputted name as the key instead of "Plus One"
-                delete familyGroup["Plus One"]; // Remove the placeholder "Plus One" key
+                familyGroup[plusOneName] = familyGroup["Plus One"]; 
+                delete familyGroup["Plus One"];
             }
 
-            // Update plusOneAllowed to false if a plus one is being submitted for the first time
-            const familyDocRef = doc(db, "rsvps", familyDocId);
-            const familyDocSnap = await getDoc(familyDocRef);
-
-            if (familyDocSnap.exists() && isPlusOneSubmitted) {
-                const familyData = familyDocSnap.data();
-                if (familyData.plusOneAllowed !== false) {
-                    await setDoc(familyDocRef, {
-                        plusOneAllowed: false
-                    }, { merge: true });
-                }
-            }
-
-            // Save the family data to Firestore
             await setDoc(doc(db, "rsvps", familyDocId), {
                 family: Object.keys(familyGroup),
                 responses: familyGroup
             }, { merge: true });
 
-            alert("RSVP submitted!");
+            // Hide the form and display confirmation message
+            contentDiv.innerHTML = "<h1>RSVP received!</h1><p>Thank you for letting us know. We can't wait to celebrate with you!</p>";
         }
-
-
 
         window.checkGuest = checkGuest;
         window.submitRSVP = submitRSVP;
