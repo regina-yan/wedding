@@ -208,6 +208,7 @@
 
         // Attach function to global scope
         window.toggleAttendance = toggleAttendance;
+        import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; 
 
         async function submitRSVP(event) {
             event.preventDefault();
@@ -221,11 +222,11 @@
             }
 
             const familyGroup = {};
-            let plusOneName = null; // Variable to hold the plus one's name
+            let plusOneName = null;
 
             document.querySelectorAll("#guestList h2").forEach(header => {
                 const member = header.textContent.trim();
-                let memberKey = member === "Your Plus One" ? "Plus One" : member; 
+                let memberKey = member === "Your Plus One" ? "Plus One" : member;
 
                 const dietaryRestrictions = [];
                 const dietaryData = {
@@ -265,13 +266,14 @@
             });
 
             if (plusOneName) {
-                familyGroup[plusOneName] = familyGroup["Plus One"]; 
+                familyGroup[plusOneName] = familyGroup["Plus One"];
                 delete familyGroup["Plus One"];
             }
 
             await setDoc(doc(db, "rsvps", familyDocId), {
                 family: Object.keys(familyGroup),
-                responses: familyGroup
+                responses: familyGroup,
+                timestamp: serverTimestamp() // Adds the current timestamp
             }, { merge: true });
 
             // Hide the form and display confirmation message

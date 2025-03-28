@@ -12,61 +12,95 @@
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-firestore.js";
 
         const firebaseConfig = {
-        apiKey: "AIzaSyBmCl8tEdceynmrJH8bCl2L8V66V5eGeSQ",
-        authDomain: "wedding-rsvp-62d31.firebaseapp.com",
-        projectId: "wedding-rsvp-62d31",
-        storageBucket: "wedding-rsvp-62d31.firebasestorage.app",
-        messagingSenderId: "49704955972",
-        appId: "1:49704955972:web:f27cdd6b976da267428c11",
-        measurementId: "G-VKXF6H07KE"
-};
+            apiKey: "AIzaSyBmCl8tEdceynmrJH8bCl2L8V66V5eGeSQ",
+            authDomain: "wedding-rsvp-62d31.firebaseapp.com",
+            projectId: "wedding-rsvp-62d31",
+            storageBucket: "wedding-rsvp-62d31.firebasestorage.app",
+            messagingSenderId: "49704955972",
+            appId: "1:49704955972:web:f27cdd6b976da267428c11",
+            measurementId: "G-VKXF6H07KE"
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
 
         async function fetchRSVPs() {
             const rsvpsRef = collection(db, "rsvps");
             const rsvpSnapshot = await getDocs(rsvpsRef);
 
             const tableBody = document.getElementById('responses-table-body');
+            tableBody.innerHTML = ""; // Clear previous entries
+
             let attendingCount = 0;
             let campingCount = 0;
             let invitedCount = 0;
+            let rsvpList = [];
 
             rsvpSnapshot.forEach((doc) => {
                 const data = doc.data();
+                const timestamp = data.timestamp || null; // Fetch timestamp (if available)
 
                 if (Array.isArray(data.family)) {
                     invitedCount += data.family.length;
                     if (data.plusOneAllowed) invitedCount++;
+
                     data.family.forEach(member => {
                         if (data.responses && data.responses[member]) {
                             const response = data.responses[member];
                             if (!response.cannot_make_it) attendingCount++;
                             if (response.camp) campingCount++;
 
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${member}</td>
-                                <td>${response.camp ? 'Yes' : 'No'}</td>
-                                <td>${response.cannot_make_it ? 'No' : 'Yes'}</td>
-                                <td>${response.friday ? 'Yes' : 'No'}</td>
-                                <td>${response.saturday ? 'Yes' : 'No'}</td>
-                                <td>${response.sunday ? 'Yes' : 'No'}</td>
-                                <td>${response.dietary_glutenfree ? 'Gluten-Free ' : ''}${response.dietary_lactosefree ? 'Lactose-Free ' : ''}${response.dietary_peanutfree ? 'Peanut-Free ' : ''}${response.dietary_shellfishfree ? 'Shellfish-Free ' : ''}${response.dietary_vegan ? 'Vegan ' : ''}${response.dietary_vegetarian ? 'Vegetarian ' : ''}${response.dietary_other || ''}</td>
-                            `;
-                            tableBody.appendChild(row);
+                            rsvpList.push({
+                                name: member,
+                                camp: response.camp ? 'Yes' : 'No',
+                                attending: response.cannot_make_it ? 'No' : 'Yes',
+                                friday: response.friday ? 'Yes' : 'No',
+                                saturday: response.saturday ? 'Yes' : 'No',
+                                sunday: response.sunday ? 'Yes' : 'No',
+                                dietary: `${response.dietary_glutenfree ? 'Gluten-Free ' : ''}${response.dietary_lactosefree ? 'Lactose-Free ' : ''}${response.dietary_peanutfree ? 'Peanut-Free ' : ''}${response.dietary_shellfishfree ? 'Shellfish-Free ' : ''}${response.dietary_vegan ? 'Vegan ' : ''}${response.dietary_vegetarian ? 'Vegetarian ' : ''}${response.dietary_other || ''}`,
+                                timestamp: timestamp // Store timestamp for sorting
+                            });
                         }
                     });
-                } else {
-                    console.warn(`No family array found for document: ${doc.id}`);
                 }
+            });
+
+            // Sort RSVPs by timestamp (newest first)
+            rsvpList.sort((a, b) => {
+                const dateA = a.timestamp ? a.timestamp.toDate() : new Date("2025-03-18");
+                const dateB = b.timestamp ? b.timestamp.toDate() : new Date("2025-03-18");
+                return dateB - dateA; // Newest first
+            });
+
+            // Render sorted data
+            rsvpList.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.camp}</td>
+                    <td>${entry.attending}</td>
+                    <td>${entry.friday}</td>
+                    <td>${entry.saturday}</td>
+                    <td>${entry.sunday}</td>
+                    <td>${entry.dietary}</td>
+                    <td>${formatTimestamp(entry.timestamp)}</td>
+                `;
+                tableBody.appendChild(row);
             });
 
             document.getElementById('attending-count').textContent = attendingCount;
             document.getElementById('camping-count').textContent = campingCount;
             document.getElementById('invited-count').textContent = invitedCount;
         }
+
+        // Format timestamp function (ensures proper display)
+        function formatTimestamp(timestamp) {
+            if (!timestamp || !timestamp.toDate) return "March 18, 2025"; 
+            const date = timestamp.toDate();
+            return date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
         window.addEventListener('DOMContentLoaded', fetchRSVPs);
     </script>
 </head>
@@ -96,6 +130,7 @@
                 <th class="table-head">Saturday</th>
                 <th class="table-head">Sunday</th>
                 <th class="table-head">Dietary Restrictions</th>
+                <th class="table-head">Submitted At</th> <!-- New column for timestamp -->
             </tr>
         </thead>
         <tbody id="responses-table-body"></tbody>
