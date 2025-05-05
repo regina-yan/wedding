@@ -82,6 +82,36 @@ h4{
     margin: 0 auto;
     margin-bottom: 40px;
 }
+.registry-container{
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px;
+
+}
+.registry-sections{
+    max-width: 800px;
+    margin: 0 auto;
+}
+.registry-item{
+    padding: 1rem;
+    border: 1px solid #ac879d;
+    border-radius: 8px;
+    background-color: #ffffff !important;
+
+}
+.registry-image{
+    height: 150px;
+    /* border: 1px solid #c2b7b7; */
+    border-radius: 4px;
+}
+.registry-link{
+    color: #E84D00;
+    text-decoration: none;
+    font-weight: 600;
+}
+.registry-link:hover{
+    color: #AD3A00;
+}
 .bg-1{
     background-color: #FFFAF5 !important;
     position: relative;
@@ -410,6 +440,9 @@ tr:hover{
     }
     .stack-mobile{
         display: block;
+    }
+    .registry-sections{
+        padding: 1rem;
     }
     .nav-links {
         display: none;
