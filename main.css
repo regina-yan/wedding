@@ -288,6 +288,13 @@ button{
 button:hover{
     background-color: #7e2600;
 }
+button.disabled {
+    background-color: #897165;
+    color: #5c4040;
+    cursor: not-allowed;
+    border: 1px solid #897165;
+    opacity: 0.7;
+}
 ul{
     font-family: 'Manrope', sans-serif;
 }

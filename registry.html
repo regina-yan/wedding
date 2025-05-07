@@ -67,7 +67,13 @@
                     <p style="font-size: 0.9rem, overflow-wrap: break-word;">${data.description}</p>
                     <a href="${data.link}" class="registry-link" target="_blank">View Item</a>
                     <p>Cost: ${data.type === 'money fund' ? '$' + (data.contributed || 0) + ' / $' + data.cost : '$' + data.cost}</p>
-                    <button onclick="openModal('${docSnap.id}', '${data.type}')" ${isDisabled ? 'disabled' : ''}>${buttonLabel}</button>
+                    <button 
+                        onclick="openModal('${docSnap.id}', '${data.type}')" 
+                        class="${isDisabled ? 'disabled' : ''}" 
+                        ${isDisabled ? 'disabled' : ''}>
+                        ${buttonLabel}
+                    </button>
+
                 `;
 
                 sectionMap[category].appendChild(itemDiv);
@@ -103,7 +109,7 @@
                 });
             }
 
-            alert('Thank you for your contribution!');
+            alert('Thank you so much for the gift! Cannot wait to use it :)');
             location.reload();
         }
 
