@@ -137,15 +137,15 @@
                         <input type="checkbox" name="sunday" id="sunday_${memberName}">
                         <label for="sunday_${memberName}"> Sunday Brunch</label>
                     </div>
-
-                    <div class="checkbox-card">
-                        <input type="checkbox" name="camp" id="camp_${memberName}">
-                        <label for="camp_${memberName}"> Staying at Camp (requires bringing sheets/blanket)</label>
-                    </div>
-
                     <div class="checkbox-card">
                         <input type="checkbox" id="cannot_make_it_${memberName}" onchange="toggleAttendance('${memberName}')">
                         <label for="cannot_make_it_${memberName}"> Cannot Make It</label>
+                    </div>
+
+                    <h3>Lodging</h3>
+                    <div class="checkbox-card">
+                        <input type="checkbox" name="camp" id="camp_${memberName}">
+                        <label for="camp_${memberName}"> Staying at Camp (requires bringing sheets/blanket)</label>
                     </div>
 
                     <div id="dietary_div_${memberName}">
