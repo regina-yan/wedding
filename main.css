@@ -99,6 +99,11 @@ h4{
     background-color: #ffffff !important;
 
 }
+.registry-item.purchased {
+    opacity: 0.6;
+    /* filter: grayscale(100%); */
+    position: relative;
+}
 .registry-image{
     height: 150px;
     /* border: 1px solid #c2b7b7; */

@@ -46,7 +46,14 @@
                 if (!sectionMap[category]) continue; // skip unknown categories
 
                 const itemDiv = document.createElement('div');
+                const isPurchased = data.purchasedBy && data.purchasedBy.length > 0;
+
                 itemDiv.className = 'registry-item';
+                    if (isPurchased && data.type !== 'money fund') {
+                        itemDiv.classList.add('purchased');
+                    }
+
+
 
                 let imageUrl = '';
                 if (data.image && data.image.startsWith('gs://')) {
@@ -57,7 +64,6 @@
                     imageUrl = data.image;
                 }
 
-                const isPurchased = data.purchasedBy && data.purchasedBy.length > 0;
                 const buttonLabel = data.type === 'money fund' ? 'Contribute' : (isPurchased ? 'Purchased' : 'Mark as Purchased');
                 const isDisabled = isPurchased && data.type !== 'money fund';
 
