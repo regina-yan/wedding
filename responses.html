@@ -28,11 +28,13 @@
         async function fetchRSVPs() {
             const rsvpsRef = collection(db, "rsvps");
             const rsvpSnapshot = await getDocs(rsvpsRef);
+            
 
             const tableBody = document.getElementById('responses-table-body');
             tableBody.innerHTML = ""; // Clear previous entries
 
             let attendingCount = 0;
+            let notAttendingCount = 0;
             let campingCount = 0;
             let invitedCount = 0;
             let rsvpList = [];
@@ -48,7 +50,11 @@
                     data.family.forEach(member => {
                         if (data.responses && data.responses[member]) {
                             const response = data.responses[member];
-                            if (!response.cannot_make_it) attendingCount++;
+                            if (!response.cannot_make_it) {
+                                    attendingCount++;
+                                } else {
+                                    notAttendingCount++;
+                                }
                             if (response.camp) campingCount++;
 
                             rsvpList.push({
@@ -92,6 +98,14 @@
             document.getElementById('attending-count').textContent = attendingCount;
             document.getElementById('camping-count').textContent = campingCount;
             document.getElementById('invited-count').textContent = invitedCount;
+            document.getElementById('not-attending-count').textContent = notAttendingCount;
+
+            const pendingCount = invitedCount - (attendingCount + notAttendingCount);
+            document.getElementById('pending-count').textContent = pendingCount;
+
+            const totalPossible = invitedCount - notAttendingCount;
+            document.getElementById('total-possible-count').textContent = totalPossible;
+
         }
 
         // Format timestamp function (ensures proper display)
@@ -108,16 +122,28 @@
     <h1>RSVP Responses</h1>
     <div class="flex border-none">
         <div class="container-white">
-            <h2>People Attending</h2>
+            <h2>Attending</h2>
             <p id="attending-count">0</p>
         </div>
         <div class="container-white">
-            <h2>People Camping</h2>
+            <h2>Not Attending</h2>
+            <p id="not-attending-count">0</p>
+        </div>  
+        <div class="container-white">
+            <h2>Pending</h2>
+            <p id="pending-count">0</p>
+        </div>      
+        <div class="container-white">
+            <h2>Camping</h2>
             <p id="camping-count">0</p>
         </div>
         <div class="container-white">
             <h2>Total Invited</h2>
             <p id="invited-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Total Possible</h2>
+            <p id="total-possible-count">0</p>
         </div>
     </div>
     <table class="table">
