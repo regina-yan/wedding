@@ -118,6 +118,13 @@ h4{
 .registry-link:hover{
     color: #AD3A00;
 }
+.dotted-divider{
+    border-top: 1px dotted black;
+    padding-bottom: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+}
 .bg-1{
     background-color: #FFFAF5 !important;
     position: relative;
@@ -390,7 +397,7 @@ body {
 .checkbox-card label {
     font-size: 16px;
     cursor: pointer;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 /* Textbox for Other Dietary */

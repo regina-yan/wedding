@@ -125,30 +125,34 @@
                     <h3>Events</h3>
                     <div class="checkbox-card">
                         <input type="checkbox" name="friday" id="friday_${memberName}">
-                        <label for="friday_${memberName}"> Friday Welcome Party</label>
+                        <label for="friday_${memberName}"> <b>Friday</b> Welcome Party</label>
                     </div>
 
                     <div class="checkbox-card">
                         <input type="checkbox" name="saturday" id="saturday_${memberName}">
-                        <label for="saturday_${memberName}"> Saturday Ceremony + Reception</label>
+                        <label for="saturday_${memberName}"> <b>Saturday</b> Ceremony + Reception</label>
                     </div>
 
                     <div class="checkbox-card">
                         <input type="checkbox" name="sunday" id="sunday_${memberName}">
-                        <label for="sunday_${memberName}"> Sunday Brunch</label>
+                        <label for="sunday_${memberName}"> <b>Sunday</b> Brunch</label>
                     </div>
+                    <div class="dotted-divider"></div>
                     <div class="checkbox-card">
                         <input type="checkbox" id="cannot_make_it_${memberName}" onchange="toggleAttendance('${memberName}')">
                         <label for="cannot_make_it_${memberName}"> Cannot Make It</label>
                     </div>
+                    <div class="padding"></div>
 
+                    <div id="lodging_div_${memberName}">
                     <h3>Lodging</h3>
                     <div class="checkbox-card">
                         <input type="checkbox" name="camp" id="camp_${memberName}">
                         <label for="camp_${memberName}"> Staying at Camp (bring your own sheets+blanket)</label>
                     </div>
                     <div>If you do not select "Staying at Camp", you'll need to book a hotel! We suggest staying in Keene, which is a 15 minute drive away. </div>
-
+                    </div>
+<div class="padding"></div>
                     <div id="dietary_div_${memberName}">
                         <h3>Dietary Restrictions</h3>
                         <div class="checkbox-card">
@@ -204,6 +208,11 @@
             const dietaryDiv = document.getElementById(`dietary_div_${member}`);
             if (dietaryDiv) {
                 dietaryDiv.style.display = cannotMakeIt ? "none" : "block";
+            }
+            // Hide or show lodging
+            const lodgingDiv = document.getElementById(`lodging_div_${member}`);
+            if (lodgingDiv) {
+                lodgingDiv.style.display = cannotMakeIt ? "none" : "block";
             }
         }
 
@@ -335,4 +344,13 @@
 
     
 </body>
+<script>
+    function logout() {
+        localStorage.removeItem("authenticated"); // Clear authentication
+        window.location.href = "index.html"; // Redirect to login
+    }
+    function toggleMenu() {
+document.querySelector(".nav-links").classList.toggle("show");
+}
+</script>
 </html>
