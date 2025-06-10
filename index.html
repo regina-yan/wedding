@@ -30,6 +30,19 @@
 
   gtag('config', 'G-VKXF6H07KE');
 </script>
+<script>
+    // Trigger submit on Enter key press
+    document.addEventListener("DOMContentLoaded", () => {
+        const passwordInput = document.getElementById("password");
+
+        passwordInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // prevent default form submission if any
+                checkPassword();
+            }
+        });
+    });
+</script>
 <body>
     <div class="">
         <div class="padding-lg hide-mobile"></div>
