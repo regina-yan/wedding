@@ -28,6 +28,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        
         async function checkGuest() {
             const inputName = document.getElementById("guestName").value.trim().toLowerCase();
             const errorMsg = document.getElementById("errorMsg");
@@ -113,6 +114,34 @@
                 form.style.display = "none";
             }
         }
+
+        async function displayCampingCount() {
+            const rsvpsRef = collection(db, "rsvps");
+            const snapshot = await getDocs(rsvpsRef);
+
+            let campingCount = 0;
+
+            snapshot.forEach(docSnap => {
+                const data = docSnap.data();
+                if (Array.isArray(data.family) && data.responses) {
+                    data.family.forEach(member => {
+                        const response = data.responses[member];
+                        if (response && response.camp && !response.cannot_make_it) {
+                            campingCount++;
+                        }
+                    });
+                }
+            });
+
+            const remainingSpots = 107 - campingCount;
+
+            const countDiv = document.getElementById("campingCount");
+            if (countDiv) {
+                countDiv.textContent = remainingSpots;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", displayCampingCount);
 
         function generateGuestForm(memberName, isPlusOne) {
             
@@ -332,7 +361,12 @@
              <div class="padding"></div>
 
             <p id="errorMsg" style="color: red; display: none;">Couldn't find the invite. Try typing your full name (the one listed on your invite)</p>
-            <p class="container-clear"><b>Please RSVP by July 15!</b><br/>Note: If you are planning to stay at camp, please read the <a href="faq.html">FAQ page</a> on what that entails (e.g. sleeping in bunks, sharing bathrooms, bringing a sleeping bag or sheets+blanket!)</p>
+            <p class="container-clear"><b>Please RSVP by July 15!</b>
+                <br/>Note: If you are planning to stay at camp, please read the <a href="faq.html">FAQ page</a> on what that entails (e.g. sleeping in bunks, sharing bathrooms, bringing a pillow and sleeping bag/sheets+blanket!)
+                <br/><br/>
+                There are limited beds at camp. There are currently <b><span id="campingCount" class="inline-text">0</span></b> spots remaining, but if this reaches 0 and you'd like to stay at camp, reach out to Regina or Shep! We will figure something out to make it work.
+            
+            </p>
 
             <form id="rsvpForm" style="display:none;">
                 <div id="guestList"></div>
