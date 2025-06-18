@@ -82,6 +82,16 @@ h4{
     margin: 0 auto;
     margin-bottom: 40px;
 }
+.container-wedding-party{
+    justify-items: center;
+    text-align: center;
+}
+.columns-2{
+    columns: 2;
+}
+.column{
+    display: block;
+}
 .registry-container{
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -228,6 +238,10 @@ h4{
     position: relative;
     height: fit-content;
 }
+.container-wedding-party{
+    /* box-shadow: 0px 4px 5px rgb(197, 197, 197); */
+    position: relative;
+}
 .tape{
     position: absolute;
     top: -15px;
@@ -265,6 +279,11 @@ h4{
 .img-fit-2{
     width: 45%;
     border-radius: 10px;
+}
+.img-wedding-party{
+    width: 140px;
+    border-radius: 10px;
+    border: 1px solid #897165;
 }
 .bg-password{
     background-image: url('bg-password.png');
