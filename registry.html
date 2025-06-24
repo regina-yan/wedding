@@ -72,8 +72,8 @@
                 itemDiv.innerHTML = `
                     <img src="${imageUrl}" alt="${data.name}" class="registry-image">
                     <h4>${data.name}</h4>
-                    <p style="font-size: 0.9rem, overflow-wrap: break-word;">${data.description}</p>
-                    <a href="${data.link}" class="registry-link" target="_blank">View Item</a>
+                    <p style="font-size: 0.9rem; overflow-wrap: break-word;">${data.description}</p>
+                    ${data.link ? `<a href="${data.link}" class="registry-link" target="_blank">View Item</a>` : ''}
                     <p>Cost: ${data.type === 'money fund' ? '$' + (data.contributed || 0) + ' / $' + data.cost : '$' + data.cost}</p>
                     <button 
                         onclick="openModal('${docSnap.id}', '${data.type}')" 
@@ -81,8 +81,8 @@
                         ${isDisabled ? 'disabled' : ''}>
                         ${buttonLabel}
                     </button>
-
                 `;
+
 
                 sectionMap[category].appendChild(itemDiv);
             }
