@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietary Restrictions Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmCl8tEdceynmrJH8bCl2L8V66V5eGeSQ",
+            authDomain: "wedding-rsvp-62d31.firebaseapp.com",
+            projectId: "wedding-rsvp-62d31",
+            storageBucket: "wedding-rsvp-62d31.firebasestorage.app",
+            messagingSenderId: "49704955972",
+            appId: "1:49704955972:web:f27cdd6b976da267428c11",
+            measurementId: "G-VKXF6H07KE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function countDietaryRestrictions() {
+            const rsvpsRef = collection(db, "rsvps");
+            const rsvpSnapshot = await getDocs(rsvpsRef);
+
+            let counts = {
+                vegetarian: 0,
+                vegan: 0,
+                glutenfree: 0,
+                peanutfree: 0,
+                lactosefree: 0,
+                shellfishfree: 0,
+                other: []
+            };
+
+            rsvpSnapshot.forEach((doc) => {
+                const data = doc.data();
+
+                if (Array.isArray(data.family)) {
+                    data.family.forEach(member => {
+                        if (data.responses && data.responses[member]) {
+                            const response = data.responses[member];
+
+                            if (response.dietary_vegetarian) counts.vegetarian++;
+                            if (response.dietary_vegan) counts.vegan++;
+                            if (response.dietary_glutenfree) counts.glutenfree++;
+                            if (response.dietary_peanutfree) counts.peanutfree++;
+                            if (response.dietary_lactosefree) counts.lactosefree++;
+                            if (response.dietary_shellfishfree) counts.shellfishfree++;
+
+                            if (response.dietary_other && response.dietary_other.trim() !== "") {
+                                counts.other.push(`${member}: ${response.dietary_other.trim()}`);
+                            }
+                        }
+                    });
+                }
+            });
+
+            renderCounts(counts);
+        }
+
+        function renderCounts(counts) {
+            document.getElementById("vegetarian-count").textContent = counts.vegetarian;
+            document.getElementById("vegan-count").textContent = counts.vegan;
+            document.getElementById("glutenfree-count").textContent = counts.glutenfree;
+            document.getElementById("peanutfree-count").textContent = counts.peanutfree;
+            document.getElementById("lactosefree-count").textContent = counts.lactosefree;
+            document.getElementById("shellfishfree-count").textContent = counts.shellfishfree;
+
+            const otherList = document.getElementById("other-list");
+            otherList.innerHTML = "";
+            counts.other.forEach(entry => {
+                const li = document.createElement("li");
+                li.textContent = entry;
+                otherList.appendChild(li);
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", countDietaryRestrictions);
+    </script>
+</head>
+<body style="font-family: 'Manrope', sans-serif;">
+    <h1>Dietary Restrictions Summary</h1>
+    <div class="flex" style="flex-wrap: wrap; gap: 1rem;">
+        <div class="container-white">
+            <h2>Vegetarian</h2>
+            <p id="vegetarian-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Vegan</h2>
+            <p id="vegan-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Gluten-Free</h2>
+            <p id="glutenfree-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Peanut-Free</h2>
+            <p id="peanutfree-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Lactose-Free</h2>
+            <p id="lactosefree-count">0</p>
+        </div>
+        <div class="container-white">
+            <h2>Shellfish-Free</h2>
+            <p id="shellfishfree-count">0</p>
+        </div>
+    </div>
+
+    <div class="container-white" style="margin-top: 2rem;">
+        <h2>Other Dietary Restrictions</h2>
+        <ul id="other-list" style="padding-left: 1rem;"></ul>
+    </div>
+</body>
+</html>
