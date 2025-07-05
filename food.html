@@ -32,9 +32,11 @@
                 vegan: 0,
                 glutenfree: 0,
                 peanutfree: 0,
+                treenutfree: 0,
                 lactosefree: 0,
                 shellfishfree: 0,
-                other: []
+                other: [],
+                totalAttending: 0
             };
 
             rsvpSnapshot.forEach((doc) => {
@@ -49,11 +51,15 @@
                             if (response.dietary_vegan) counts.vegan++;
                             if (response.dietary_glutenfree) counts.glutenfree++;
                             if (response.dietary_peanutfree) counts.peanutfree++;
+                            if (response.dietary_treenutfree) counts.treenutfree++;
                             if (response.dietary_lactosefree) counts.lactosefree++;
                             if (response.dietary_shellfishfree) counts.shellfishfree++;
 
                             if (response.dietary_other && response.dietary_other.trim() !== "") {
                                 counts.other.push(`${member}: ${response.dietary_other.trim()}`);
+                            }
+                            if (response.saturday === true && !response.cannot_make_it) {
+                                counts.totalAttending++;
                             }
                         }
                     });
@@ -68,8 +74,11 @@
             document.getElementById("vegan-count").textContent = counts.vegan;
             document.getElementById("glutenfree-count").textContent = counts.glutenfree;
             document.getElementById("peanutfree-count").textContent = counts.peanutfree;
+            document.getElementById("treenutfree-count").textContent = counts.treenutfree;
             document.getElementById("lactosefree-count").textContent = counts.lactosefree;
             document.getElementById("shellfishfree-count").textContent = counts.shellfishfree;
+            document.getElementById("total-attending-count").textContent = counts.totalAttending;
+
 
             const otherList = document.getElementById("other-list");
             otherList.innerHTML = "";
@@ -84,36 +93,49 @@
     </script>
 </head>
 <body style="font-family: 'Manrope', sans-serif;">
-    <h1>Dietary Restrictions Summary</h1>
-    <div class="flex" style="flex-wrap: wrap; gap: 1rem;">
-        <div class="container-white">
-            <h2>Vegetarian</h2>
-            <p id="vegetarian-count">0</p>
-        </div>
-        <div class="container-white">
-            <h2>Vegan</h2>
-            <p id="vegan-count">0</p>
-        </div>
-        <div class="container-white">
-            <h2>Gluten-Free</h2>
-            <p id="glutenfree-count">0</p>
-        </div>
-        <div class="container-white">
-            <h2>Peanut-Free</h2>
-            <p id="peanutfree-count">0</p>
-        </div>
-        <div class="container-white">
-            <h2>Lactose-Free</h2>
-            <p id="lactosefree-count">0</p>
-        </div>
-        <div class="container-white">
-            <h2>Shellfish-Free</h2>
-            <p id="shellfishfree-count">0</p>
-        </div>
-    </div>
-
+    <h1>Dietary</h1>
     <div class="container-white" style="margin-top: 2rem;">
-        <h2>Other Dietary Restrictions</h2>
+        <h2>Summary</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th class="table-head"><b>Total Attending Dinner</b></th>
+                    <th class="table-head"><span id="total-attending-count">0</span></th>
+                </tr>
+                <tr>
+                    <td><b>Vegetarian</b></td>
+                    <td><span id="vegetarian-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Vegan</b></td>
+                    <td><span id="vegan-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Gluten-Free</b></td>
+                    <td><span id="glutenfree-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Peanut-Free</b></td>
+                    <td><span id="peanutfree-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Treenut-Free</b></td>
+                    <td><span id="treenutfree-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Lactose-Free</b></td>
+                    <td><span id="lactosefree-count">0</span></td>
+                </tr>
+                <tr>
+                    <td><b>Shellfish-Free</b></td>
+                    <td><span id="shellfishfree-count">0</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="container-white" style="margin-top: 2rem;">
+        <h2>Other Restrictions / Guest Notes</h2>
         <ul id="other-list" style="padding-left: 1rem;"></ul>
     </div>
 </body>
