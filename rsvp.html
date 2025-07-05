@@ -184,6 +184,7 @@
 <div class="padding"></div>
                     <div id="dietary_div_${memberName}">
                         <h3>Dietary Restrictions</h3>
+                        <div>We will be serving food "family style" and will clearly label anything with nuts, gluten, lactose, etc. If you have an allergy that absolutely cannot have cross-contamination or you cannot be in a space with that ingredient present, please mark that down in the notes.</div>
                         <div class="checkbox-card">
                             <input type="checkbox" name="dietary_${memberName}" id="dietary_vegetarian_${memberName}" value="vegetarian">
                             <label for="dietary_vegetarian_${memberName}"> Vegetarian</label>
@@ -202,6 +203,10 @@
                         <div class="checkbox-card">
                             <input type="checkbox" name="dietary_${memberName}" id="dietary_peanutfree_${memberName}" value="peanutfree">
                             <label for="dietary_peanutfree_${memberName}"> Peanut-Free</label>
+                        </div>
+                        <div class="checkbox-card">
+                            <input type="checkbox" name="dietary_${memberName}" id="dietary_treenutfree_${memberName}" value="treenutfree">
+                            <label for="dietary_treenutfree_${memberName}"> Tree Nut-Free</label>
                         </div>
 
                         <div class="checkbox-card">
@@ -273,6 +278,7 @@
                     dietary_vegan: false,
                     dietary_glutenfree: false,
                     dietary_peanutfree: false,
+                    dietary_treenutfree: false,
                     dietary_lactosefree: false,
                     dietary_shellfishfree: false,
                     dietary_other: ""
