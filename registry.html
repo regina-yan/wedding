@@ -41,21 +41,27 @@
                 fund: document.getElementById('fund-items')
             };
 
+            const itemsByCategory = {};
+
+            for (const category in sectionMap) {
+                itemsByCategory[category] = {
+                    unpurchased: [],
+                    purchased: []
+                };
+            }
+
             for (const docSnap of registrySnapshot.docs) {
                 const data = docSnap.data();
-                const category = (data.category || '').toLowerCase(); // normalize category
-
-                if (!sectionMap[category]) continue; // skip unknown categories
+                const category = (data.category || '').toLowerCase();
+                if (!sectionMap[category]) continue;
 
                 const itemDiv = document.createElement('div');
                 const isPurchased = data.purchasedBy && data.purchasedBy.length > 0;
 
                 itemDiv.className = 'registry-item';
-                    if (isPurchased && data.type !== 'money fund') {
-                        itemDiv.classList.add('purchased');
-                    }
-
-
+                if (isPurchased && data.type !== 'money fund') {
+                    itemDiv.classList.add('purchased');
+                }
 
                 let imageUrl = '';
                 if (data.image && data.image.startsWith('gs://')) {
@@ -83,9 +89,20 @@
                     </button>
                 `;
 
-
-                sectionMap[category].appendChild(itemDiv);
+                if (isPurchased && data.type !== 'money fund') {
+                    itemsByCategory[category].purchased.push(itemDiv);
+                } else {
+                    itemsByCategory[category].unpurchased.push(itemDiv);
+                }
             }
+
+            // Append unpurchased first, then purchased
+            for (const category in itemsByCategory) {
+                const container = sectionMap[category];
+                itemsByCategory[category].unpurchased.forEach(item => container.appendChild(item));
+                itemsByCategory[category].purchased.forEach(item => container.appendChild(item));
+            }
+
         }
 
         window.openModal = function(itemId, type) {
