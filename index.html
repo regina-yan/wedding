@@ -43,19 +43,22 @@
         });
     });
 </script>
-<body>
+<body class="home-bg">
     <div class="">
-        <div class="padding-lg hide-mobile"></div>
-        <div class="content">
-            <img class="bg-doodles-no-padding" src="assets/bg-doodles.svg"/>
-            <div class="padding"></div>
+        <!-- <div class="padding-lg hide-mobile"></div> -->
+        <div class="content home-heading-color">
+            <img class="bg-doodles-no-padding home-heading-fill" src="assets/bg-doodles-centered.svg"/>
+            <div class="home-heading-border relative">
+                <div class="padding"></div>
             <img class="doodle"src="assets/cover-stamp.svg"/>
-            <h3>Regina Yan and Sheppard Somers</h3>
-            <h1>We're getting married!</h1>
-            <div >
+            <h3 class="home-heading-color">Regina Yan and Sheppard Somers</h3>
+            <h1 class="home-heading-color">We're getting married!</h1>
+            <div class="flex border-none justify-center absolute-input stack-mobile">
                 <!-- <div><h4>Enter password (it's on the invitation) </h4></div> -->
                 <input type="password" id="password" placeholder="Password (it's on the invitation)" class="rsvp-input">
                 <button onclick="checkPassword()">Submit</button></div>
+            </div>
+            
         </div>
         <div class="padding-lg"></div>
     </div>

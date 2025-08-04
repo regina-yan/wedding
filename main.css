@@ -32,6 +32,20 @@ body {
     background-position: top left;
     background-repeat: repeat;
 } 
+.home-bg{
+    background-image: none;
+    background-color: #FFD7C5
+}
+.home-heading-color{
+    color: #E23B3D !important;
+}
+.home-heading-border{
+    border: 2px solid #E23B3D;
+    border-radius: 1.5rem;
+}
+.justify-center{
+    justify-content: center;
+}
 p{
     font-family: 'Manrope', sans-serif;
 }
@@ -40,7 +54,7 @@ h1 {
     font-size: 3.5rem;
     text-align: center;
     margin-top: 20px;
-    color: #AD3A00;
+    color: #E23B3D;
     letter-spacing: 0.1rem;
 }
 h2{
@@ -126,7 +140,7 @@ h4{
     font-weight: 600;
 }
 .registry-link:hover{
-    color: #AD3A00;
+    color: #E23B3D;
 }
 .dotted-divider{
     border-top: 1px dotted black;
@@ -296,11 +310,19 @@ h4{
     align-items: center;
     
 }
+.absolute-input{
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    background-color: #FFD7C5;   
+}
 input{
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 4px;
-    border: 1px solid #AD3A00;
+    border: 1px solid #E23B3D;
     min-width: 250px;
 }
 input:focus{
@@ -311,8 +333,8 @@ button{
     padding: 0.5rem;
     padding-bottom: 0.3rem;
     font-size: 1rem;
-    background-color: #AD3A00;
-    border: 1px solid #AD3A00;
+    background-color: #E23B3D;
+    border: 1px solid #E23B3D;
     border-radius: 4px;
     color: #fff;
     font-family: "Mauren";
@@ -434,7 +456,7 @@ body {
 
 .container-clickable {
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: trans gnform 0.2s ease, box-shadow 0.2s ease;
   }
   
   .container-clickable:hover {
@@ -475,6 +497,12 @@ tr:hover{
 }
 
 @media (max-width: 768px) {
+    .absolute-input{
+        position: static !important;
+        padding: 0rem !important; 
+        border-radius: 3rem;
+        transform: none;
+    }
     .bg-password {
         background-image: url('bg-password-phone.png'); /* Image for phones */
         background-position: top;
