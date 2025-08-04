@@ -169,7 +169,7 @@
     <div id="registry-sections" class="registry-sections">
         <p>You know what they say, your presence is the greatest present, and we fully agree! If you do feel compelled to give a gift, we've listed a few items we've been eyeing for awhile, though we absolutely do not expect anything - we're just so excited to celebrate with you! </br> </br> Our address is <b>1272 46th Ave. San Francisco, CA 94122</b></p>
         <div class="registry-item">
-            <p>Our wedding is entirely DIY - we're having friends cook, play music, decorate, etc. This is part of the camp charm, and if you'd like, we'd love for you to be part of the DIY spirit (especially in lieu of a gift) -- We'll post a sign-up link for "camp chores" here soon.</p>
+            <p>Our wedding is almost entirely DIY - we're having friends cook, play music, decorate, etc. This is part of the camp charm, and if you'd like, we'd love for you to be part of the DIY spirit (especially in lieu of a gift) -- We'll post a sign-up link for "camp chores" here soon.</p>
         </div>
         <section>
             <h2>Top Items</h2>
@@ -215,5 +215,14 @@
             <button onclick="closeModal()">Cancel</button>
         </div>
     </div>
+        <script>
+        function logout() {
+            localStorage.removeItem("authenticated"); // Clear authentication
+            window.location.href = "index.html"; // Redirect to login
+        }
+        function toggleMenu() {
+    document.querySelector(".nav-links").classList.toggle("show");
+}
+    </script>
 </body>
 </html>
