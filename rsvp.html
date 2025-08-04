@@ -371,25 +371,25 @@
         <div>
             <h2>Wedding RSVP</h2>
             <!-- <label for="guestName">Enter Your Name:</label> -->
-             <div class="flex border-none justify-center">
+             <div class="flex border-none justify-center stack-mobile">
                 <input type="text" id="guestName" placeholder="Type your name" class="rsvp-input">
                 <button onclick="checkGuest()">Find Invitation</button>
              </div>
              <div class="padding"></div>
 
             <p id="errorMsg" style="color: red; display: none;">Couldn't find the invite. Try typing your full name (the one listed on your invite)</p>
-            <p class="container-clear"><b>Please RSVP by July 15!</b>
-                <br/>Note: If you are planning to stay at camp, please read the <a href="faq.html">FAQ page</a> on what that entails (e.g. sleeping in bunks, sharing bathrooms, bringing a pillow and sleeping bag/sheets+blanket!)
-                <br/><br/>
-                There are limited beds at camp. There are currently <b><span id="campingCount" class="inline-text">0</span></b> spots remaining, but if this reaches 0 and you'd like to stay at camp, reach out to Regina or Shep! We will figure something out to make it work.
-            
-            </p>
 
             <form id="rsvpForm" style="display:none;">
                 <div id="guestList"></div>
                 <br>
                 <button type="submit">Submit RSVP</button>
             </form>
+            <p class="container-clear"><b>Please RSVP by July 15!</b>
+                <br/>Note: If you are planning to stay at camp, please read the <a href="faq.html">FAQ page</a> on what that entails (e.g. sleeping in bunks, sharing bathrooms, bringing a pillow and sleeping bag/sheets+blanket!)
+                <br/><br/>
+                There are limited beds at camp. There are currently <b><span id="campingCount" class="inline-text">0</span></b> spots remaining, but if this reaches 0 and you'd like to stay at camp, reach out to Regina or Shep! We will figure something out to make it work.
+            
+            </p>
         </div>
     </div>
 
