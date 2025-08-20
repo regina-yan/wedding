@@ -71,6 +71,9 @@ h3{
 h4{
     font-family: 'Manrope', sans-serif;
 }
+.text-xs{
+    font-size: 0.7rem;
+}
 .no-margin{
     margin-top: 0;
     margin-bottom: 0;
